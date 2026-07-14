@@ -391,32 +391,37 @@
             <div class="v">azadi.cloud</div>
           </div>
         </div>
-        <form onsubmit="return false;">
+        <form id="kontaktform">
           <div class="field-row">
             <div>
               <label for="name" data-i18n="form.name">Name</label>
-              <input id="name" type="text">
+              <input id="name" name="name" type="text" required>
             </div>
             <div>
               <label for="firma" data-i18n="form.company">Unternehmen</label>
-              <input id="firma" type="text">
+              <input id="firma" name="firma" type="text">
             </div>
           </div>
           <div>
             <label for="email" data-i18n="form.email">E-Mail</label>
-            <input id="email" type="email" placeholder="name@unternehmen.de">
+            <input id="email" name="email" type="email" placeholder="name@unternehmen.de" required>
           </div>
           <div>
             <label for="thema" data-i18n="form.topic">Themenbereich</label>
-            <input id="thema" type="text" data-i18n-placeholder="form.topic.ph" placeholder="z. B. Entra ID Rollout, AD-Härtung, PAM-Einführung">
+            <input id="thema" name="thema" type="text" data-i18n-placeholder="form.topic.ph" placeholder="z. B. Entra ID Rollout, AD-Härtung, PAM-Einführung">
           </div>
           <div>
             <label for="nachricht" data-i18n="form.message">Nachricht</label>
-            <textarea id="nachricht" data-i18n-placeholder="form.message.ph" placeholder="Kurze Beschreibung Ihrer Ausgangslage und Zielsetzung."></textarea>
+            <textarea id="nachricht" name="nachricht" data-i18n-placeholder="form.message.ph" placeholder="Kurze Beschreibung Ihrer Ausgangslage und Zielsetzung." required></textarea>
+          </div>
+          <!-- Honeypot gegen Spam-Bots: für Menschen unsichtbar, muss leer bleiben -->
+          <div style="position:absolute; left:-9999px;" aria-hidden="true">
+            <label for="website">Website</label>
+            <input id="website" name="website" type="text" tabindex="-1" autocomplete="off">
           </div>
           <div class="submit-row">
-            <button type="submit" class="btn-primary" style="border:1px solid var(--blue);" data-i18n="form.submit">Anfrage senden</button>
-            <span class="submit-note" data-i18n="form.note">Demo-Formular — noch nicht mit Backend verbunden.</span>
+            <button type="submit" id="kontaktform-submit" class="btn-primary" style="border:1px solid var(--blue);" data-i18n="form.submit">Anfrage senden</button>
+            <span class="submit-note" id="kontaktform-note" data-i18n="form.note">Wir antworten in der Regel innerhalb von zwei Werktagen.</span>
           </div>
         </form>
       </div>
@@ -491,7 +496,8 @@
       "form.name":"Name", "form.company":"Unternehmen", "form.email":"E-Mail", "form.topic":"Themenbereich",
       "form.topic.ph":"z. B. Entra ID Rollout, AD-Härtung, PAM-Einführung",
       "form.message":"Nachricht", "form.message.ph":"Kurze Beschreibung Ihrer Ausgangslage und Zielsetzung.",
-      "form.submit":"Anfrage senden", "form.note":"Demo-Formular — noch nicht mit Backend verbunden.",
+      "form.submit":"Anfrage senden", "form.note":"Wir antworten in der Regel innerhalb von zwei Werktagen.",
+      "form.sending":"Wird gesendet …", "form.success":"Danke! Ihre Anfrage wurde versendet.", "form.error":"Fehler beim Senden. Bitte versuchen Sie es erneut oder schreiben Sie direkt an kontakt@azadi.cloud.",
       "footer.imprint":"Impressum", "footer.privacy":"Datenschutz"
     },
     en: {
@@ -545,7 +551,8 @@
       "form.name":"Name", "form.company":"Company", "form.email":"Email", "form.topic":"Topic",
       "form.topic.ph":"e.g. Entra ID rollout, AD hardening, PAM implementation",
       "form.message":"Message", "form.message.ph":"Briefly describe your current situation and goal.",
-      "form.submit":"Send request", "form.note":"Demo form — not yet connected to a backend.",
+      "form.submit":"Send request", "form.note":"We typically reply within two business days.",
+      "form.sending":"Sending …", "form.success":"Thank you! Your request has been sent.", "form.error":"Something went wrong. Please try again or email kontakt@azadi.cloud directly.",
       "footer.imprint":"Legal notice", "footer.privacy":"Privacy"
     }
   };
@@ -637,6 +644,64 @@
   }
 
   applyLang('de');
+
+  // --- Kontaktformular: Versand an kontakt@azadi.cloud ---
+  // WICHTIG: Access Key von https://web3forms.com eintragen (kostenlos, keine Registrierung nötig).
+  // Dort einfach kontakt@azadi.cloud eintragen, Key kopieren, hier einfügen.
+  const WEB3FORMS_ACCESS_KEY = "f0f452ff-0bb3-4dd4-ab78-520bdb57323c";
+
+  const kontaktForm = document.getElementById('kontaktform');
+  const kontaktBtn = document.getElementById('kontaktform-submit');
+  const kontaktNote = document.getElementById('kontaktform-note');
+  const noteKeys = { idle: 'form.note', sending: 'form.sending', success: 'form.success', error: 'form.error' };
+
+  function setNote(state) {
+    const lang = document.documentElement.lang || 'de';
+    const dict = (typeof i18n !== 'undefined' && i18n[lang]) ? i18n[lang] : {};
+    kontaktNote.textContent = dict[noteKeys[state]] || noteKeys[state];
+  }
+
+  if (kontaktForm) {
+    kontaktForm.addEventListener('submit', async function (e) {
+      e.preventDefault();
+
+      // Honeypot: wenn ausgefüllt, ist es ein Bot -> stillschweigend abbrechen
+      if (kontaktForm.website.value) return;
+
+      kontaktBtn.disabled = true;
+      setNote('sending');
+
+      const payload = {
+        access_key: WEB3FORMS_ACCESS_KEY,
+        subject: "Neue Anfrage über azadi.cloud",
+        from_name: "azadi.cloud Kontaktformular",
+        name: kontaktForm.name.value,
+        firma: kontaktForm.firma.value,
+        email: kontaktForm.email.value,
+        thema: kontaktForm.thema.value,
+        nachricht: kontaktForm.nachricht.value
+      };
+
+      try {
+        const res = await fetch("https://api.web3forms.com/submit", {
+          method: "POST",
+          headers: { "Content-Type": "application/json", "Accept": "application/json" },
+          body: JSON.stringify(payload)
+        });
+        const data = await res.json();
+        if (data.success) {
+          setNote('success');
+          kontaktForm.reset();
+        } else {
+          setNote('error');
+        }
+      } catch (err) {
+        setNote('error');
+      } finally {
+        kontaktBtn.disabled = false;
+      }
+    });
+  }
 </script>
 
 </body>
