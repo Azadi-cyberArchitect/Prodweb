@@ -27,7 +27,7 @@
 
       "azureActiveDirectory": {
         "registration": {
-          "openIdIssuer": "https://login.microsoftonline.com/<TENANT_ID>/v2.0",
+          "openIdIssuer": "https://login.microsoftonline.com/e22a5980-e077-4499-88ef-240062f8cde4/v2.0",
           "clientIdSettingName": "AZURE_CLIENT_ID",
           "clientSecretSettingName": "AZURE_CLIENT_SECRET"
         }
@@ -46,18 +46,6 @@
           "appSecretSettingName": "FACEBOOK_APP_SECRET"
         }
       },
-
-      "customOpenIdConnectProviders": {
-        "auth0": {
-          "registration": {
-            "clientIdSettingName": "AUTH0_CLIENT_ID",
-            "clientCredential": {
-              "clientSecretSettingName": "AUTH0_CLIENT_SECRET"
-            },
-            "openIdConnectConfiguration": {
-              "wellKnownOpenIdConfiguration": "https://<AUTH0_DOMAIN>/.well-known/openid-configuration"
-            }
-          },
           "login": {
             "nameClaimType": "name",
             "scopes": ["openid", "profile", "email"]
