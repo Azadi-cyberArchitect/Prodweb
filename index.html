@@ -409,32 +409,33 @@
             <div class="v">azadi.cloud</div>
           </div>
         </div>
-        <form onsubmit="return false;">
+        <form id="kontaktform" onsubmit="return false;">
+          <input type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute; left:-9999px; width:1px; height:1px; opacity:0;" aria-hidden="true">
           <div class="field-row">
             <div>
               <label for="name" data-i18n="form.name">Name</label>
-              <input id="name" type="text">
+              <input id="name" name="name" type="text" required>
             </div>
             <div>
               <label for="firma" data-i18n="form.company">Unternehmen</label>
-              <input id="firma" type="text">
+              <input id="firma" name="firma" type="text">
             </div>
           </div>
           <div>
             <label for="email" data-i18n="form.email">E-Mail</label>
-            <input id="email" type="email" placeholder="name@unternehmen.de">
+            <input id="email" name="email" type="email" placeholder="name@unternehmen.de" required>
           </div>
           <div>
             <label for="thema" data-i18n="form.topic">Themenbereich</label>
-            <input id="thema" type="text" data-i18n-placeholder="form.topic.ph" placeholder="z. B. Entra ID Rollout, AD-Härtung, PAM-Einführung">
+            <input id="thema" name="thema" type="text" data-i18n-placeholder="form.topic.ph" placeholder="z. B. Entra ID Rollout, AD-Härtung, PAM-Einführung">
           </div>
           <div>
             <label for="nachricht" data-i18n="form.message">Nachricht</label>
-            <textarea id="nachricht" data-i18n-placeholder="form.message.ph" placeholder="Kurze Beschreibung Ihrer Ausgangslage und Zielsetzung."></textarea>
+            <textarea id="nachricht" name="nachricht" data-i18n-placeholder="form.message.ph" placeholder="Kurze Beschreibung Ihrer Ausgangslage und Zielsetzung."></textarea>
           </div>
           <div class="submit-row">
-            <button type="submit" class="btn-primary" style="border:1px solid var(--blue);" data-i18n="form.submit">Anfrage senden</button>
-            <span class="submit-note" data-i18n="form.note">Demo-Formular — noch nicht mit Backend verbunden.</span>
+            <button type="submit" id="kontaktform-submit" class="btn-primary" style="border:1px solid var(--blue);" data-i18n="form.submit">Anfrage senden</button>
+            <span class="submit-note" id="kontaktform-note" data-i18n="form.note">Wir antworten in der Regel innerhalb von zwei Werktagen.</span>
           </div>
         </form>
       </div>
@@ -445,7 +446,7 @@
 
 <footer>
   <div class="wrap">
-    <span class="fmono">© 2026 AZADI · develop by Karwan Ali moradi</span>
+    <span class="fmono">© 2026 AZADI · developed by Karwan Alimoradi</span>
     <div class="flinks">
       <a href="#leistungen" data-i18n="nav.services">Leistungen</a>
       <a href="#ueber-mich" data-i18n="nav.about">Über mich</a>
@@ -509,7 +510,9 @@
       "form.name":"Name", "form.company":"Unternehmen", "form.email":"E-Mail", "form.topic":"Themenbereich",
       "form.topic.ph":"z. B. Entra ID Rollout, AD-Härtung, PAM-Einführung",
       "form.message":"Nachricht", "form.message.ph":"Kurze Beschreibung Ihrer Ausgangslage und Zielsetzung.",
-      "form.submit":"Anfrage senden", "form.note":"Demo-Formular — noch nicht mit Backend verbunden.",
+      "form.submit":"Anfrage senden", "form.note":"Wir antworten in der Regel innerhalb von zwei Werktagen.",
+      "form.sending":"Wird gesendet …", "form.success":"Danke! Ihre Anfrage wurde erfolgreich gesendet.",
+      "form.error":"Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut oder schreiben Sie uns direkt an kontakt@azadi.cloud.",
       "footer.imprint":"Impressum", "footer.privacy":"Datenschutz"
     },
     en: {
@@ -563,7 +566,9 @@
       "form.name":"Name", "form.company":"Company", "form.email":"Email", "form.topic":"Topic",
       "form.topic.ph":"e.g. Entra ID rollout, AD hardening, PAM implementation",
       "form.message":"Message", "form.message.ph":"Briefly describe your current situation and goal.",
-      "form.submit":"Send request", "form.note":"Demo form — not yet connected to a backend.",
+      "form.submit":"Send request", "form.note":"We typically reply within two business days.",
+      "form.sending":"Sending …", "form.success":"Thank you! Your request has been sent successfully.",
+      "form.error":"Something went wrong. Please try again or email us directly at kontakt@azadi.cloud.",
       "footer.imprint":"Legal notice", "footer.privacy":"Privacy"
     },
     ar: {
@@ -617,7 +622,9 @@
       "form.name":"الاسم", "form.company":"الشركة", "form.email":"البريد الإلكتروني", "form.topic":"الموضوع",
       "form.topic.ph":"مثال: نشر Entra ID، تحصين AD، تطبيق PAM",
       "form.message":"الرسالة", "form.message.ph":"وصف موجز لوضعكم الحالي وهدفكم.",
-      "form.submit":"إرسال الطلب", "form.note":"نموذج تجريبي — غير متصل بعد بخادم فعلي.",
+      "form.submit":"إرسال الطلب", "form.note":"عادةً ما نرد خلال يومي عمل.",
+      "form.sending":"جارٍ الإرسال …", "form.success":"شكرًا لكم! تم إرسال طلبكم بنجاح.",
+      "form.error":"حدث خطأ ما. يرجى المحاولة مرة أخرى أو مراسلتنا مباشرة على kontakt@azadi.cloud.",
       "footer.imprint":"بيانات الشركة", "footer.privacy":"الخصوصية"
     },
     fa: {
@@ -671,7 +678,9 @@
       "form.name":"نام", "form.company":"شرکت", "form.email":"ایمیل", "form.topic":"موضوع",
       "form.topic.ph":"مثلاً: استقرار Entra ID، تقویت امنیتی AD، پیاده‌سازی PAM",
       "form.message":"پیام", "form.message.ph":"توضیح کوتاهی از وضعیت فعلی و هدف خود بنویسید.",
-      "form.submit":"ارسال درخواست", "form.note":"فرم نمایشی — هنوز به بک‌اند متصل نشده است.",
+      "form.submit":"ارسال درخواست", "form.note":"معمولاً ظرف دو روز کاری پاسخ می‌دهیم.",
+      "form.sending":"در حال ارسال …", "form.success":"متشکریم! درخواست شما با موفقیت ارسال شد.",
+      "form.error":"خطایی رخ داد. لطفاً دوباره تلاش کنید یا مستقیماً به kontakt@azadi.cloud ایمیل بزنید.",
       "footer.imprint":"اطلاعات قانونی", "footer.privacy":"حریم خصوصی"
     }
   };
@@ -698,6 +707,55 @@
     });
   }
   function setLang(lang){ applyLang(lang); }
+
+  // --- Kontaktformular: Versand an kontakt@azadi.cloud ---
+  const WEB3FORMS_ACCESS_KEY = "f0f452ff-0bb3-4dd4-ab78-520bdb57323c";
+  const kontaktForm = document.getElementById('kontaktform');
+  const kontaktBtn = document.getElementById('kontaktform-submit');
+  const kontaktNote = document.getElementById('kontaktform-note');
+  const noteKeys = { idle: 'form.note', sending: 'form.sending', success: 'form.success', error: 'form.error' };
+  function setNote(state) {
+    const lang = document.documentElement.lang || 'de';
+    const dict = (typeof i18n !== 'undefined' && i18n[lang]) ? i18n[lang] : {};
+    kontaktNote.textContent = dict[noteKeys[state]] || noteKeys[state];
+  }
+  if (kontaktForm) {
+    kontaktForm.addEventListener('submit', async function (e) {
+      e.preventDefault();
+      // Honeypot: wenn ausgefüllt, ist es ein Bot -> stillschweigend abbrechen
+      if (kontaktForm.website.value) return;
+      kontaktBtn.disabled = true;
+      setNote('sending');
+      const payload = {
+        access_key: WEB3FORMS_ACCESS_KEY,
+        subject: "Neue Anfrage über azadi.cloud",
+        from_name: "azadi.cloud Kontaktformular",
+        name: kontaktForm.name.value,
+        firma: kontaktForm.firma.value,
+        email: kontaktForm.email.value,
+        thema: kontaktForm.thema.value,
+        nachricht: kontaktForm.nachricht.value
+      };
+      try {
+        const res = await fetch("https://api.web3forms.com/submit", {
+          method: "POST",
+          headers: { "Content-Type": "application/json", "Accept": "application/json" },
+          body: JSON.stringify(payload)
+        });
+        const data = await res.json();
+        if (data.success) {
+          setNote('success');
+          kontaktForm.reset();
+        } else {
+          setNote('error');
+        }
+      } catch (err) {
+        setNote('error');
+      } finally {
+        kontaktBtn.disabled = false;
+      }
+    });
+  }
 
   const toggle = document.getElementById('menuToggle');
   const navlinks = document.getElementById('navlinks');
