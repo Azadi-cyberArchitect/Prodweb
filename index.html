@@ -4,39 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AZADI — Entra ID, IAM & Infrastructure Security</title>
-<meta name="description" content="AZADI berät Unternehmen bei Microsoft Entra ID, IAM, PAM und PIM: sichere Zugriffskontrolle, Zero-Trust-Architektur und Infrastructure Security aus einer Hand.">
-<meta name="robots" content="index, follow">
-<link rel="canonical" href="https://azadi.cloud/">
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="AZADI">
-<meta property="og:title" content="AZADI — Entra ID, IAM & Infrastructure Security">
-<meta property="og:description" content="Beratung für Microsoft Entra ID, IAM, PAM und PIM: sichere Zugriffskontrolle, Zero-Trust-Architektur und Infrastructure Security.">
-<meta property="og:url" content="https://azadi.cloud/">
-<meta property="og:locale" content="de_DE">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="AZADI — Entra ID, IAM & Infrastructure Security">
-<meta name="twitter:description" content="Beratung für Microsoft Entra ID, IAM, PAM und PIM: sichere Zugriffskontrolle, Zero-Trust-Architektur und Infrastructure Security.">
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  "name": "AZADI",
-  "url": "https://azadi.cloud/",
-  "email": "kontakt@azadi.cloud",
-  "description": "Beratung für Microsoft Entra ID, IAM, PAM und PIM sowie Infrastructure Security.",
-  "sameAs": []
-}
-</script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  "name": "AZADI",
-  "url": "https://azadi.cloud/"
-}
-</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Noto+Kufi+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
     --bg:#ffffff;
@@ -61,6 +30,22 @@
   @media (max-width:640px){ .wrap{padding:0 20px;} }
   a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible{outline:2px solid var(--blue); outline-offset:3px;}
 
+  /* RTL support (Arabic / Farsi) */
+  body.rtl, body.rtl h1, body.rtl h2, body.rtl h3{font-family:'Noto Kufi Arabic', 'IBM Plex Sans', sans-serif;}
+  body.rtl .mono, body.rtl .eyebrow, body.rtl .service-tag, body.rtl .phase-num,
+  body.rtl .matrix, body.rtl .navcta, body.rtl label, body.rtl .fmono,
+  body.rtl .lang-toggle button, body.rtl .k, body.rtl .tag{font-family:'Noto Kufi Arabic', 'IBM Plex Mono', monospace;}
+  [dir="rtl"] .eyebrow::before{order:2;}
+  [dir="rtl"] .skill-list li{flex-direction:row-reverse;}
+  [dir="rtl"] .phase{border-right:none;}
+  [dir="rtl"] .phase{border-left:1px solid var(--line); padding:0 24px 0 0;}
+  [dir="rtl"] .phase:first-child{border-left:1px solid var(--line);}
+  [dir="rtl"] .phase:last-child{border-left:none; padding-right:0;}
+  @media (max-width:860px){
+    [dir="rtl"] .phase{border-left:none; border-right:2px solid var(--blue); padding:0 24px 0 0;}
+  }
+  [dir="rtl"] .matrix{direction:ltr;}
+
   /* NAV */
   header{position:sticky; top:0; z-index:50; background:rgba(255,255,255,0.92); backdrop-filter:blur(8px); border-bottom:1px solid var(--line);}
   nav{display:flex; align-items:center; justify-content:space-between; height:76px;}
@@ -71,8 +56,8 @@
   .navlinks a.nl:hover{color:var(--navy);}
   .navcta{font-family:'IBM Plex Mono', monospace; font-size:0.82rem; color:#fff; background:var(--blue); padding:10px 18px; border:1px solid var(--blue); transition:background .2s, color .2s;}
   .navcta:hover{background:#fff; color:var(--blue);}
-  .lang-toggle{display:flex; border:1px solid var(--line); font-family:'IBM Plex Mono', monospace; font-size:0.76rem; overflow:hidden; border-radius:2px;}
-  .lang-toggle button{background:none; border:none; color:var(--steel); padding:8px 12px; cursor:pointer;}
+  .lang-toggle{display:flex; border:1px solid var(--line); font-family:'IBM Plex Mono', monospace; font-size:0.72rem; overflow:hidden; border-radius:2px;}
+  .lang-toggle button{background:none; border:none; color:var(--steel); padding:8px 9px; cursor:pointer;}
   .lang-toggle button.active{background:var(--blue); color:#fff;}
   .menu-toggle{display:none; background:none; border:none; color:var(--navy); font-size:1.6rem; cursor:pointer;}
   @media (max-width:900px){
@@ -216,6 +201,8 @@
         <div class="lang-toggle" role="group" aria-label="Language switch">
           <button id="btn-de" class="active" onclick="setLang('de')">DE</button>
           <button id="btn-en" onclick="setLang('en')">EN</button>
+          <button id="btn-ar" onclick="setLang('ar')">AR</button>
+          <button id="btn-fa" onclick="setLang('fa')">FA</button>
         </div>
         <button class="menu-toggle" id="menuToggle" aria-label="Menü öffnen" aria-expanded="false">☰</button>
       </div>
@@ -273,46 +260,46 @@
       <div class="services-grid">
         <div class="service-card">
           <div class="service-tag">01 · Entra ID</div>
-          <h3 data-i18n="svc1.h3">Entra ID & Hybrid Identity</h3>
+          <h3 data-i18n="svc1.h3">Entra ID &amp; Hybrid Identity</h3>
           <p data-i18n="svc1.p">Konzeption und Betrieb von Microsoft Entra ID — inklusive hybrider Anbindung an bestehende Verzeichnisdienste.</p>
           <ul>
-            <li data-i18n="svc1.l1">Entra ID Architektur & Konfiguration</li>
-            <li data-i18n="svc1.l2">Hybrid Identity & Verzeichnissynchronisation</li>
-            <li data-i18n="svc1.l3">Single Sign-On & Multi-Faktor-Authentifizierung</li>
-            <li data-i18n="svc1.l4">Conditional Access & Zugriffsrichtlinien</li>
+            <li data-i18n="svc1.l1">Entra ID Architektur &amp; Konfiguration</li>
+            <li data-i18n="svc1.l2">Hybrid Identity &amp; Verzeichnissynchronisation</li>
+            <li data-i18n="svc1.l3">Single Sign-On &amp; Multi-Faktor-Authentifizierung</li>
+            <li data-i18n="svc1.l4">Conditional Access &amp; Zugriffsrichtlinien</li>
           </ul>
         </div>
         <div class="service-card">
           <div class="service-tag" data-i18n="svc2.tag">02 · Active Directory</div>
-          <h3 data-i18n="svc2.h3">AD-Härtung & Systemarchitektur</h3>
+          <h3 data-i18n="svc2.h3">AD-Härtung &amp; Systemarchitektur</h3>
           <p data-i18n="svc2.p">Active Directory analysieren, härten und in eine belastbare Systemarchitektur einbetten.</p>
           <ul>
-            <li data-i18n="svc2.l1">AD-Sicherheitsanalyse & Hardening</li>
-            <li data-i18n="svc2.l2">Systemarchitektur-Design & Dokumentation</li>
-            <li data-i18n="svc2.l3">Tiering-Modelle & Delegation</li>
-            <li data-i18n="svc2.l4">Patch- & Konfigurationsmanagement</li>
+            <li data-i18n="svc2.l1">AD-Sicherheitsanalyse &amp; Hardening</li>
+            <li data-i18n="svc2.l2">Systemarchitektur-Design &amp; Dokumentation</li>
+            <li data-i18n="svc2.l3">Tiering-Modelle &amp; Delegation</li>
+            <li data-i18n="svc2.l4">Patch- &amp; Konfigurationsmanagement</li>
           </ul>
         </div>
         <div class="service-card">
-          <div class="service-tag" data-i18n="svc3.tag">03 · PAM & PIM</div>
-          <h3 data-i18n="svc3.h3">Privileged Access & Identity Management</h3>
+          <div class="service-tag" data-i18n="svc3.tag">03 · PAM &amp; PIM</div>
+          <h3 data-i18n="svc3.h3">Privileged Access &amp; Identity Management</h3>
           <p data-i18n="svc3.p">Privilegierte Konten und Rollen kontrollieren — zeitlich begrenzt, nachvollziehbar, prüfbar.</p>
           <ul>
-            <li data-i18n="svc3.l1">Einführung von PAM- & PIM-Lösungen</li>
+            <li data-i18n="svc3.l1">Einführung von PAM- &amp; PIM-Lösungen</li>
             <li data-i18n="svc3.l2">Just-in-Time-Berechtigungen</li>
-            <li data-i18n="svc3.l3">Access Reviews & Rezertifizierung</li>
-            <li data-i18n="svc3.l4">Rollen- & Berechtigungsmodelle (RBAC)</li>
+            <li data-i18n="svc3.l3">Access Reviews &amp; Rezertifizierung</li>
+            <li data-i18n="svc3.l4">Rollen- &amp; Berechtigungsmodelle (RBAC)</li>
           </ul>
         </div>
         <div class="service-card">
           <div class="service-tag" data-i18n="svc4.tag">04 · Automatisierung</div>
-          <h3 data-i18n="svc4.h3">Automatisierung & Consulting</h3>
+          <h3 data-i18n="svc4.h3">Automatisierung &amp; Consulting</h3>
           <p data-i18n="svc4.p">Wiederkehrende IAM-Prozesse automatisieren und komplexe Kundenprojekte von Analyse bis Betrieb begleiten.</p>
           <ul>
-            <li data-i18n="svc4.l1">Automatisierung von Provisioning & Lifecycle</li>
-            <li data-i18n="svc4.l2">Analyse & Beratung bei komplexen Umgebungen</li>
-            <li data-i18n="svc4.l3">Skripting & Tooling (PowerShell, Graph API)</li>
-            <li data-i18n="svc4.l4">Begleitung bei Migrationen & Rollouts</li>
+            <li data-i18n="svc4.l1">Automatisierung von Provisioning &amp; Lifecycle</li>
+            <li data-i18n="svc4.l2">Analyse &amp; Beratung bei komplexen Umgebungen</li>
+            <li data-i18n="svc4.l3">Skripting &amp; Tooling (PowerShell, Graph API)</li>
+            <li data-i18n="svc4.l4">Begleitung bei Migrationen &amp; Rollouts</li>
           </ul>
         </div>
       </div>
@@ -358,7 +345,7 @@
         <h2 data-i18n="stats.h2">Was Kunden davon haben</h2>
       </div>
       <div class="stats">
-        <div class="stat"><span class="num">40+</span><span class="label" data-i18n="stat1">Entra ID & AD-Projekte begleitet</span></div>
+        <div class="stat"><span class="num">40+</span><span class="label" data-i18n="stat1">Entra ID &amp; AD-Projekte begleitet</span></div>
         <div class="stat"><span class="num">65%</span><span class="label" data-i18n="stat2">Ø Reduktion überprivilegierter Konten</span></div>
         <div class="stat"><span class="num">200+</span><span class="label" data-i18n="stat3">durchgeführte Access Reviews</span></div>
         <div class="stat"><span class="num">10+</span><span class="label" data-i18n="stat4">Jahre Erfahrung in Microsoft-Infrastruktur</span></div>
@@ -386,17 +373,17 @@
       <div class="founder-wrap">
         <div class="founder-card">
           <div class="avatar-badge">AZ</div>
-          <h3 data-i18n="founder.name">Gründer & Lead Consultant</h3>
-          <div class="role" data-i18n="founder.role">System Engineer — Microsoft Infrastructure & IAM</div>
+          <h3 data-i18n="founder.name">Gründer &amp; Lead Consultant</h3>
+          <div class="role" data-i18n="founder.role">System Engineer — Microsoft Infrastructure &amp; IAM</div>
           <p data-i18n="founder.p">System Engineer mit Spezialisierung auf Microsoft-Infrastruktur, Entra ID und IAM-Lösungen. Begleitet Unternehmen bei Active-Directory-Härtung, Systemarchitektur und komplexen Identitätsprojekten — von der Analyse bis zum laufenden Betrieb.</p>
         </div>
         <ul class="skill-list">
-          <li><span data-i18n="skill1">Microsoft Entra ID & Hybrid Identity</span><span class="tag">Core</span></li>
-          <li><span data-i18n="skill2">Active Directory Härtung & Systemarchitektur</span><span class="tag">Core</span></li>
-          <li><span data-i18n="skill3">PAM & PIM Lösungen</span><span class="tag">Core</span></li>
-          <li><span data-i18n="skill4">SSO & Multi-Faktor-Authentifizierung</span><span class="tag">Core</span></li>
+          <li><span data-i18n="skill1">Microsoft Entra ID &amp; Hybrid Identity</span><span class="tag">Core</span></li>
+          <li><span data-i18n="skill2">Active Directory Härtung &amp; Systemarchitektur</span><span class="tag">Core</span></li>
+          <li><span data-i18n="skill3">PAM &amp; PIM Lösungen</span><span class="tag">Core</span></li>
+          <li><span data-i18n="skill4">SSO &amp; Multi-Faktor-Authentifizierung</span><span class="tag">Core</span></li>
           <li><span data-i18n="skill5">Automatisierung (PowerShell, Microsoft Graph)</span><span class="tag">Tooling</span></li>
-          <li><span data-i18n="skill6">Analyse & Beratung bei komplexen Kundenumgebungen</span><span class="tag">Consulting</span></li>
+          <li><span data-i18n="skill6">Analyse &amp; Beratung bei komplexen Kundenumgebungen</span><span class="tag">Consulting</span></li>
         </ul>
       </div>
     </div>
@@ -422,37 +409,32 @@
             <div class="v">azadi.cloud</div>
           </div>
         </div>
-        <form id="kontaktform">
+        <form onsubmit="return false;">
           <div class="field-row">
             <div>
               <label for="name" data-i18n="form.name">Name</label>
-              <input id="name" name="name" type="text" required>
+              <input id="name" type="text">
             </div>
             <div>
               <label for="firma" data-i18n="form.company">Unternehmen</label>
-              <input id="firma" name="firma" type="text">
+              <input id="firma" type="text">
             </div>
           </div>
           <div>
             <label for="email" data-i18n="form.email">E-Mail</label>
-            <input id="email" name="email" type="email" placeholder="name@unternehmen.de" required>
+            <input id="email" type="email" placeholder="name@unternehmen.de">
           </div>
           <div>
             <label for="thema" data-i18n="form.topic">Themenbereich</label>
-            <input id="thema" name="thema" type="text" data-i18n-placeholder="form.topic.ph" placeholder="z. B. Entra ID Rollout, AD-Härtung, PAM-Einführung">
+            <input id="thema" type="text" data-i18n-placeholder="form.topic.ph" placeholder="z. B. Entra ID Rollout, AD-Härtung, PAM-Einführung">
           </div>
           <div>
             <label for="nachricht" data-i18n="form.message">Nachricht</label>
-            <textarea id="nachricht" name="nachricht" data-i18n-placeholder="form.message.ph" placeholder="Kurze Beschreibung Ihrer Ausgangslage und Zielsetzung." required></textarea>
-          </div>
-          <!-- Honeypot gegen Spam-Bots: für Menschen unsichtbar, muss leer bleiben -->
-          <div style="position:absolute; left:-9999px;" aria-hidden="true">
-            <label for="website">Website</label>
-            <input id="website" name="website" type="text" tabindex="-1" autocomplete="off">
+            <textarea id="nachricht" data-i18n-placeholder="form.message.ph" placeholder="Kurze Beschreibung Ihrer Ausgangslage und Zielsetzung."></textarea>
           </div>
           <div class="submit-row">
-            <button type="submit" id="kontaktform-submit" class="btn-primary" style="border:1px solid var(--blue);" data-i18n="form.submit">Anfrage senden</button>
-            <span class="submit-note" id="kontaktform-note" data-i18n="form.note">Wir antworten in der Regel innerhalb von zwei Werktagen.</span>
+            <button type="submit" class="btn-primary" style="border:1px solid var(--blue);" data-i18n="form.submit">Anfrage senden</button>
+            <span class="submit-note" data-i18n="form.note">Demo-Formular — noch nicht mit Backend verbunden.</span>
           </div>
         </form>
       </div>
@@ -463,7 +445,7 @@
 
 <footer>
   <div class="wrap">
-    <span class="fmono">© 2026 AZADI · Developed by Karwan Alimoradi </span>
+    <span class="fmono">© 2026 AZADI · develop by Karwan Ali moradi</span>
     <div class="flinks">
       <a href="#leistungen" data-i18n="nav.services">Leistungen</a>
       <a href="#ueber-mich" data-i18n="nav.about">Über mich</a>
@@ -487,22 +469,22 @@
       "trust.hybrid":"Hybrid Identity",
       "services.eyebrow":"Leistungen", "services.h2":"Vier Ebenen, ein Prinzip",
       "services.p":"Identität, Verzeichnisdienste, privilegierter Zugriff und die Automatisierung dahinter — als ein zusammenhängendes Modell gedacht, nicht als getrennte Projekte.",
-      "svc1.h3":"Entra ID & Hybrid Identity",
+      "svc1.h3":"Entra ID &amp; Hybrid Identity",
       "svc1.p":"Konzeption und Betrieb von Microsoft Entra ID — inklusive hybrider Anbindung an bestehende Verzeichnisdienste.",
-      "svc1.l1":"Entra ID Architektur & Konfiguration", "svc1.l2":"Hybrid Identity & Verzeichnissynchronisation",
-      "svc1.l3":"Single Sign-On & Multi-Faktor-Authentifizierung", "svc1.l4":"Conditional Access & Zugriffsrichtlinien",
-      "svc2.tag":"02 · Active Directory", "svc2.h3":"AD-Härtung & Systemarchitektur",
+      "svc1.l1":"Entra ID Architektur &amp; Konfiguration", "svc1.l2":"Hybrid Identity &amp; Verzeichnissynchronisation",
+      "svc1.l3":"Single Sign-On &amp; Multi-Faktor-Authentifizierung", "svc1.l4":"Conditional Access &amp; Zugriffsrichtlinien",
+      "svc2.tag":"02 · Active Directory", "svc2.h3":"AD-Härtung &amp; Systemarchitektur",
       "svc2.p":"Active Directory analysieren, härten und in eine belastbare Systemarchitektur einbetten.",
-      "svc2.l1":"AD-Sicherheitsanalyse & Hardening", "svc2.l2":"Systemarchitektur-Design & Dokumentation",
-      "svc2.l3":"Tiering-Modelle & Delegation", "svc2.l4":"Patch- & Konfigurationsmanagement",
-      "svc3.tag":"03 · PAM & PIM", "svc3.h3":"Privileged Access & Identity Management",
+      "svc2.l1":"AD-Sicherheitsanalyse &amp; Hardening", "svc2.l2":"Systemarchitektur-Design &amp; Dokumentation",
+      "svc2.l3":"Tiering-Modelle &amp; Delegation", "svc2.l4":"Patch- &amp; Konfigurationsmanagement",
+      "svc3.tag":"03 · PAM &amp; PIM", "svc3.h3":"Privileged Access &amp; Identity Management",
       "svc3.p":"Privilegierte Konten und Rollen kontrollieren — zeitlich begrenzt, nachvollziehbar, prüfbar.",
-      "svc3.l1":"Einführung von PAM- & PIM-Lösungen", "svc3.l2":"Just-in-Time-Berechtigungen",
-      "svc3.l3":"Access Reviews & Rezertifizierung", "svc3.l4":"Rollen- & Berechtigungsmodelle (RBAC)",
-      "svc4.tag":"04 · Automatisierung", "svc4.h3":"Automatisierung & Consulting",
+      "svc3.l1":"Einführung von PAM- &amp; PIM-Lösungen", "svc3.l2":"Just-in-Time-Berechtigungen",
+      "svc3.l3":"Access Reviews &amp; Rezertifizierung", "svc3.l4":"Rollen- &amp; Berechtigungsmodelle (RBAC)",
+      "svc4.tag":"04 · Automatisierung", "svc4.h3":"Automatisierung &amp; Consulting",
       "svc4.p":"Wiederkehrende IAM-Prozesse automatisieren und komplexe Kundenprojekte von Analyse bis Betrieb begleiten.",
-      "svc4.l1":"Automatisierung von Provisioning & Lifecycle", "svc4.l2":"Analyse & Beratung bei komplexen Umgebungen",
-      "svc4.l3":"Skripting & Tooling (PowerShell, Graph API)", "svc4.l4":"Begleitung bei Migrationen & Rollouts",
+      "svc4.l1":"Automatisierung von Provisioning &amp; Lifecycle", "svc4.l2":"Analyse &amp; Beratung bei komplexen Umgebungen",
+      "svc4.l3":"Skripting &amp; Tooling (PowerShell, Graph API)", "svc4.l4":"Begleitung bei Migrationen &amp; Rollouts",
       "process.eyebrow":"Ansatz", "process.h2":"Vier Phasen, ein Projekt",
       "process.p":"Jedes Mandat folgt derselben Grundstruktur — angepasst an Größe und Reifegrad Ihrer Umgebung.",
       "phase1.h3":"Analyse", "phase1.p":"Bestandsaufnahme von Entra ID, Active Directory und privilegierten Konten. Wo liegen die tatsächlichen Risiken?",
@@ -510,25 +492,24 @@
       "phase3.h3":"Umsetzung", "phase3.p":"Technische Implementierung inklusive Automatisierung — gemeinsam mit Ihren Teams.",
       "phase4.h3":"Betrieb", "phase4.p":"Monitoring, Rezertifizierung und Weiterentwicklung, damit das Modell dauerhaft trägt.",
       "stats.eyebrow":"Ergebnisse", "stats.h2":"Was Kunden davon haben",
-      "stat1":"Entra ID & AD-Projekte begleitet", "stat2":"Ø Reduktion überprivilegierter Konten",
+      "stat1":"Entra ID &amp; AD-Projekte begleitet", "stat2":"Ø Reduktion überprivilegierter Konten",
       "stat3":"durchgeführte Access Reviews", "stat4":"Jahre Erfahrung in Microsoft-Infrastruktur",
       "quote.text":"Die meisten Sicherheitsvorfälle beginnen nicht mit einem Angriff — <span>sondern mit einer Berechtigung, die niemand mehr erklären kann.</span>",
       "quote.cite":"— Leitsatz unserer Arbeitsweise bei AZADI",
       "about.eyebrow":"Über mich", "about.h2":"Ein Ansprechpartner, tiefes Fachwissen",
       "about.p":"AZADI steht für direkte Zusammenarbeit statt großer Beraterteams — mit einem klaren Fokus auf Microsoft-Identitätslösungen.",
-      "founder.name":"Gründer & Lead Consultant", "founder.role":"System Engineer — Microsoft Infrastructure & IAM",
+      "founder.name":"Gründer &amp; Lead Consultant", "founder.role":"System Engineer — Microsoft Infrastructure &amp; IAM",
       "founder.p":"System Engineer mit Spezialisierung auf Microsoft-Infrastruktur, Entra ID und IAM-Lösungen. Begleitet Unternehmen bei Active-Directory-Härtung, Systemarchitektur und komplexen Identitätsprojekten — von der Analyse bis zum laufenden Betrieb.",
-      "skill1":"Microsoft Entra ID & Hybrid Identity", "skill2":"Active Directory Härtung & Systemarchitektur",
-      "skill3":"PAM & PIM Lösungen", "skill4":"SSO & Multi-Faktor-Authentifizierung",
-      "skill5":"Automatisierung (PowerShell, Microsoft Graph)", "skill6":"Analyse & Beratung bei komplexen Kundenumgebungen",
+      "skill1":"Microsoft Entra ID &amp; Hybrid Identity", "skill2":"Active Directory Härtung &amp; Systemarchitektur",
+      "skill3":"PAM &amp; PIM Lösungen", "skill4":"SSO &amp; Multi-Faktor-Authentifizierung",
+      "skill5":"Automatisierung (PowerShell, Microsoft Graph)", "skill6":"Analyse &amp; Beratung bei komplexen Kundenumgebungen",
       "contact.eyebrow":"Kontakt", "contact.h2":"Zugang anfragen",
       "contact.p":"Schildern Sie uns kurz Ihre Ausgangslage. Wir melden uns innerhalb von zwei Werktagen mit einem konkreten Vorschlag für ein Erstgespräch.",
       "contact.email":"E-Mail", "contact.phone":"Telefon", "contact.web":"Web",
       "form.name":"Name", "form.company":"Unternehmen", "form.email":"E-Mail", "form.topic":"Themenbereich",
       "form.topic.ph":"z. B. Entra ID Rollout, AD-Härtung, PAM-Einführung",
       "form.message":"Nachricht", "form.message.ph":"Kurze Beschreibung Ihrer Ausgangslage und Zielsetzung.",
-      "form.submit":"Anfrage senden", "form.note":"Wir antworten in der Regel innerhalb von zwei Werktagen.",
-      "form.sending":"Wird gesendet …", "form.success":"Danke! Ihre Anfrage wurde versendet.", "form.error":"Fehler beim Senden. Bitte versuchen Sie es erneut oder schreiben Sie direkt an kontakt@azadi.cloud.",
+      "form.submit":"Anfrage senden", "form.note":"Demo-Formular — noch nicht mit Backend verbunden.",
       "footer.imprint":"Impressum", "footer.privacy":"Datenschutz"
     },
     en: {
@@ -542,22 +523,22 @@
       "trust.hybrid":"Hybrid Identity",
       "services.eyebrow":"Services", "services.h2":"Four layers, one principle",
       "services.p":"Identity, directory services, privileged access and the automation behind them — treated as one connected model, not separate projects.",
-      "svc1.h3":"Entra ID & Hybrid Identity",
+      "svc1.h3":"Entra ID &amp; Hybrid Identity",
       "svc1.p":"Design and operation of Microsoft Entra ID — including hybrid connectivity to existing directory services.",
-      "svc1.l1":"Entra ID architecture & configuration", "svc1.l2":"Hybrid identity & directory synchronization",
-      "svc1.l3":"Single sign-on & multi-factor authentication", "svc1.l4":"Conditional access & access policies",
-      "svc2.tag":"02 · Active Directory", "svc2.h3":"AD Hardening & System Architecture",
+      "svc1.l1":"Entra ID architecture &amp; configuration", "svc1.l2":"Hybrid identity &amp; directory synchronization",
+      "svc1.l3":"Single sign-on &amp; multi-factor authentication", "svc1.l4":"Conditional access &amp; access policies",
+      "svc2.tag":"02 · Active Directory", "svc2.h3":"AD Hardening &amp; System Architecture",
       "svc2.p":"Assessing and hardening Active Directory, embedded in a resilient system architecture.",
-      "svc2.l1":"AD security assessment & hardening", "svc2.l2":"System architecture design & documentation",
-      "svc2.l3":"Tiering models & delegation", "svc2.l4":"Patch & configuration management",
-      "svc3.tag":"03 · PAM & PIM", "svc3.h3":"Privileged Access & Identity Management",
+      "svc2.l1":"AD security assessment &amp; hardening", "svc2.l2":"System architecture design &amp; documentation",
+      "svc2.l3":"Tiering models &amp; delegation", "svc2.l4":"Patch &amp; configuration management",
+      "svc3.tag":"03 · PAM &amp; PIM", "svc3.h3":"Privileged Access &amp; Identity Management",
       "svc3.p":"Controlling privileged accounts and roles — time-bound, traceable, auditable.",
-      "svc3.l1":"PAM & PIM implementation", "svc3.l2":"Just-in-time permissions",
-      "svc3.l3":"Access reviews & recertification", "svc3.l4":"Role & permission models (RBAC)",
-      "svc4.tag":"04 · Automation", "svc4.h3":"Automation & Consulting",
+      "svc3.l1":"PAM &amp; PIM implementation", "svc3.l2":"Just-in-time permissions",
+      "svc3.l3":"Access reviews &amp; recertification", "svc3.l4":"Role &amp; permission models (RBAC)",
+      "svc4.tag":"04 · Automation", "svc4.h3":"Automation &amp; Consulting",
       "svc4.p":"Automating recurring IAM processes and supporting complex client projects from assessment to operations.",
-      "svc4.l1":"Provisioning & lifecycle automation", "svc4.l2":"Assessment & advisory for complex environments",
-      "svc4.l3":"Scripting & tooling (PowerShell, Graph API)", "svc4.l4":"Support for migrations & rollouts",
+      "svc4.l1":"Provisioning &amp; lifecycle automation", "svc4.l2":"Assessment &amp; advisory for complex environments",
+      "svc4.l3":"Scripting &amp; tooling (PowerShell, Graph API)", "svc4.l4":"Support for migrations &amp; rollouts",
       "process.eyebrow":"Approach", "process.h2":"Four phases, one engagement",
       "process.p":"Every engagement follows the same core structure — adapted to the size and maturity of your environment.",
       "phase1.h3":"Assess", "phase1.p":"Inventory of Entra ID, Active Directory and privileged accounts. Where are the real risks?",
@@ -565,31 +546,141 @@
       "phase3.h3":"Implement", "phase3.p":"Technical implementation including automation — together with your teams.",
       "phase4.h3":"Operate", "phase4.p":"Monitoring, recertification and ongoing refinement so the model holds up over time.",
       "stats.eyebrow":"Results", "stats.h2":"What clients get out of it",
-      "stat1":"Entra ID & AD projects delivered", "stat2":"Avg. reduction in over-privileged accounts",
+      "stat1":"Entra ID &amp; AD projects delivered", "stat2":"Avg. reduction in over-privileged accounts",
       "stat3":"Access reviews completed", "stat4":"Years of experience in Microsoft infrastructure",
       "quote.text":"Most security incidents don't start with an attack — <span>they start with a permission no one can explain anymore.</span>",
       "quote.cite":"— The principle behind how AZADI works",
       "about.eyebrow":"About", "about.h2":"One point of contact, deep expertise",
       "about.p":"AZADI means working directly with the person doing the work, not a large consulting bench — with a clear focus on Microsoft identity solutions.",
-      "founder.name":"Founder & Lead Consultant", "founder.role":"System Engineer — Microsoft Infrastructure & IAM",
+      "founder.name":"Founder &amp; Lead Consultant", "founder.role":"System Engineer — Microsoft Infrastructure &amp; IAM",
       "founder.p":"System engineer specializing in Microsoft infrastructure, Entra ID and IAM solutions. Supports organizations with Active Directory hardening, system architecture and complex identity projects — from assessment to ongoing operations.",
-      "skill1":"Microsoft Entra ID & hybrid identity", "skill2":"Active Directory hardening & system architecture",
-      "skill3":"PAM & PIM solutions", "skill4":"SSO & multi-factor authentication",
-      "skill5":"Automation (PowerShell, Microsoft Graph)", "skill6":"Assessment & advisory for complex client environments",
+      "skill1":"Microsoft Entra ID &amp; hybrid identity", "skill2":"Active Directory hardening &amp; system architecture",
+      "skill3":"PAM &amp; PIM solutions", "skill4":"SSO &amp; multi-factor authentication",
+      "skill5":"Automation (PowerShell, Microsoft Graph)", "skill6":"Assessment &amp; advisory for complex client environments",
       "contact.eyebrow":"Contact", "contact.h2":"Request access",
       "contact.p":"Tell us briefly about your situation. We'll get back to you within two business days with a concrete proposal for an initial call.",
       "contact.email":"Email", "contact.phone":"Phone", "contact.web":"Web",
       "form.name":"Name", "form.company":"Company", "form.email":"Email", "form.topic":"Topic",
       "form.topic.ph":"e.g. Entra ID rollout, AD hardening, PAM implementation",
       "form.message":"Message", "form.message.ph":"Briefly describe your current situation and goal.",
-      "form.submit":"Send request", "form.note":"We typically reply within two business days.",
-      "form.sending":"Sending …", "form.success":"Thank you! Your request has been sent.", "form.error":"Something went wrong. Please try again or email kontakt@azadi.cloud directly.",
+      "form.submit":"Send request", "form.note":"Demo form — not yet connected to a backend.",
       "footer.imprint":"Legal notice", "footer.privacy":"Privacy"
+    },
+    ar: {
+      "nav.services":"الخدمات", "nav.approach":"منهجية العمل", "nav.results":"النتائج",
+      "nav.about":"من نحن", "nav.cta":"اطلب استشارة", "nav.contact":"تواصل معنا",
+      "hero.eyebrow":"Entra ID · إدارة الهوية · هندسة الأنظمة",
+      "hero.h1":"من يملك صلاحية ماذا؟<br>ولماذا <em>بالتحديد</em>؟",
+      "hero.lead":"تقدم AZADI استشارات في Microsoft Entra ID وActive Directory والهوية الهجينة — من هندسة الأنظمة إلى PAM/PIM وأتمتة حلول إدارة الهوية المعقدة.",
+      "hero.cta1":"اطلب استشارة", "hero.cta2":"عرض الخدمات",
+      "matrix.live":"قيد التقييم", "matrix.granted":"مسموح", "matrix.denied":"مرفوض",
+      "trust.hybrid":"الهوية الهجينة",
+      "services.eyebrow":"الخدمات", "services.h2":"أربعة مستويات، مبدأ واحد",
+      "services.p":"الهوية، خدمات الدليل، الوصول المتميز، والأتمتة الكامنة خلفها — نتعامل معها كنموذج واحد مترابط، لا كمشاريع منفصلة.",
+      "svc1.h3":"Entra ID والهوية الهجينة",
+      "svc1.p":"تصميم وتشغيل Microsoft Entra ID — بما في ذلك الربط الهجين مع خدمات الدليل القائمة.",
+      "svc1.l1":"بنية وإعداد Entra ID", "svc1.l2":"الهوية الهجينة ومزامنة الدليل",
+      "svc1.l3":"تسجيل الدخول الموحد والمصادقة متعددة العوامل", "svc1.l4":"الوصول الشرطي وسياسات الوصول",
+      "svc2.tag":"02 · Active Directory", "svc2.h3":"تحصين AD وهندسة الأنظمة",
+      "svc2.p":"تحليل وتحصين Active Directory ودمجه ضمن بنية أنظمة قوية وموثوقة.",
+      "svc2.l1":"تقييم أمني وتحصين لـ AD", "svc2.l2":"تصميم وتوثيق هندسة الأنظمة",
+      "svc2.l3":"نماذج التصنيف الطبقي والتفويض", "svc2.l4":"إدارة التصحيحات والإعدادات",
+      "svc3.tag":"03 · PAM و PIM", "svc3.h3":"إدارة الوصول والهوية المتميزة",
+      "svc3.p":"التحكم في الحسابات والأدوار المتميزة — بشكل مؤقت وقابل للتتبع والمراجعة.",
+      "svc3.l1":"تطبيق حلول PAM وPIM", "svc3.l2":"صلاحيات آنية عند الحاجة (Just-in-Time)",
+      "svc3.l3":"مراجعات الوصول وإعادة الاعتماد", "svc3.l4":"نماذج الأدوار والصلاحيات (RBAC)",
+      "svc4.tag":"04 · الأتمتة", "svc4.h3":"الأتمتة والاستشارات",
+      "svc4.p":"أتمتة العمليات المتكررة لإدارة الهوية ومرافقة مشاريع العملاء المعقدة من التحليل إلى التشغيل.",
+      "svc4.l1":"أتمتة التزويد ودورة حياة الحسابات", "svc4.l2":"تحليل واستشارات للبيئات المعقدة",
+      "svc4.l3":"البرمجة النصية والأدوات (PowerShell وGraph API)", "svc4.l4":"مرافقة عمليات الترحيل والنشر",
+      "process.eyebrow":"منهجية العمل", "process.h2":"أربع مراحل، مشروع واحد",
+      "process.p":"يتبع كل مشروع نفس البنية الأساسية — مع التكيف مع حجم بيئتكم ومستوى نضجها.",
+      "phase1.h3":"التحليل", "phase1.p":"جرد لـ Entra ID وActive Directory والحسابات المتميزة. أين تكمن المخاطر الفعلية؟",
+      "phase2.h3":"التصميم", "phase2.p":"بنية مستهدفة للهويات والأدوار والصلاحيات، متوافقة مع سير العمل الفعلي.",
+      "phase3.h3":"التنفيذ", "phase3.p":"تنفيذ تقني يشمل الأتمتة — بالتعاون المباشر مع فرقكم.",
+      "phase4.h3":"التشغيل", "phase4.p":"مراقبة مستمرة وإعادة اعتماد وتطوير، لضمان استمرارية النموذج.",
+      "stats.eyebrow":"النتائج", "stats.h2":"ما يحصل عليه العملاء",
+      "stat1":"مشروع Entra ID وAD تم إنجازه", "stat2":"متوسط خفض الحسابات ذات الصلاحيات الزائدة",
+      "stat3":"مراجعة وصول تم إجراؤها", "stat4":"سنوات خبرة في بنية Microsoft التحتية",
+      "quote.text":"معظم الحوادث الأمنية لا تبدأ بهجوم — <span>بل تبدأ بصلاحية لم يعد أحد قادرًا على تفسيرها.</span>",
+      "quote.cite":"— المبدأ الذي تقوم عليه طريقة عمل AZADI",
+      "about.eyebrow":"من نحن", "about.h2":"جهة اتصال واحدة، خبرة عميقة",
+      "about.p":"تعني AZADI العمل المباشر مع من ينفذ العمل فعليًا، لا مع فريق استشاري كبير — مع تركيز واضح على حلول الهوية من Microsoft.",
+      "founder.name":"المؤسس والمستشار الرئيسي", "founder.role":"مهندس أنظمة — بنية Microsoft التحتية وإدارة الهوية",
+      "founder.p":"مهندس أنظمة متخصص في بنية Microsoft التحتية وEntra ID وحلول إدارة الهوية. يرافق المؤسسات في تحصين Active Directory وهندسة الأنظمة ومشاريع الهوية المعقدة — من التحليل إلى التشغيل المستمر.",
+      "skill1":"Microsoft Entra ID والهوية الهجينة", "skill2":"تحصين Active Directory وهندسة الأنظمة",
+      "skill3":"حلول PAM وPIM", "skill4":"تسجيل الدخول الموحد والمصادقة متعددة العوامل",
+      "skill5":"الأتمتة (PowerShell وMicrosoft Graph)", "skill6":"تحليل واستشارات لبيئات العملاء المعقدة",
+      "contact.eyebrow":"تواصل معنا", "contact.h2":"اطلب استشارة",
+      "contact.p":"أخبرونا باختصار عن وضعكم الحالي. سنتواصل معكم خلال يومي عمل باقتراح ملموس لمكالمة أولى.",
+      "contact.email":"البريد الإلكتروني", "contact.phone":"الهاتف", "contact.web":"الموقع الإلكتروني",
+      "form.name":"الاسم", "form.company":"الشركة", "form.email":"البريد الإلكتروني", "form.topic":"الموضوع",
+      "form.topic.ph":"مثال: نشر Entra ID، تحصين AD، تطبيق PAM",
+      "form.message":"الرسالة", "form.message.ph":"وصف موجز لوضعكم الحالي وهدفكم.",
+      "form.submit":"إرسال الطلب", "form.note":"نموذج تجريبي — غير متصل بعد بخادم فعلي.",
+      "footer.imprint":"بيانات الشركة", "footer.privacy":"الخصوصية"
+    },
+    fa: {
+      "nav.services":"خدمات", "nav.approach":"رویکرد", "nav.results":"نتایج",
+      "nav.about":"درباره من", "nav.cta":"درخواست مشاوره", "nav.contact":"تماس",
+      "hero.eyebrow":"Entra ID · مدیریت هویت · معماری سیستم",
+      "hero.h1":"چه کسی به چه چیزی دسترسی دارد؟<br>و <em>دقیقاً چرا</em>؟",
+      "hero.lead":"AZADI به سازمان‌ها در زمینه Microsoft Entra ID، Active Directory و هویت ترکیبی مشاوره می‌دهد — از معماری سیستم تا PAM/PIM و خودکارسازی راهکارهای پیچیده IAM.",
+      "hero.cta1":"درخواست مشاوره", "hero.cta2":"مشاهده خدمات",
+      "matrix.live":"در حال بررسی", "matrix.granted":"مجاز", "matrix.denied":"رد شده",
+      "trust.hybrid":"هویت ترکیبی",
+      "services.eyebrow":"خدمات", "services.h2":"چهار لایه، یک اصل",
+      "services.p":"هویت، خدمات دایرکتوری، دسترسی ممتاز و خودکارسازی پشت آن‌ها — همه به‌عنوان یک مدل به‌هم‌پیوسته دیده می‌شوند، نه پروژه‌های جداگانه.",
+      "svc1.h3":"Entra ID و هویت ترکیبی",
+      "svc1.p":"طراحی و راهبری Microsoft Entra ID — شامل اتصال ترکیبی به خدمات دایرکتوری موجود.",
+      "svc1.l1":"معماری و پیکربندی Entra ID", "svc1.l2":"هویت ترکیبی و همگام‌سازی دایرکتوری",
+      "svc1.l3":"ورود یکپارچه و احراز هویت چندعاملی", "svc1.l4":"دسترسی شرطی و سیاست‌های دسترسی",
+      "svc2.tag":"۰۲ · Active Directory", "svc2.h3":"تقویت امنیتی AD و معماری سیستم",
+      "svc2.p":"تحلیل و تقویت امنیتی Active Directory و ادغام آن در یک معماری سیستم پایدار.",
+      "svc2.l1":"ارزیابی امنیتی و سخت‌سازی AD", "svc2.l2":"طراحی و مستندسازی معماری سیستم",
+      "svc2.l3":"مدل‌های لایه‌بندی و تفویض اختیار", "svc2.l4":"مدیریت وصله و پیکربندی",
+      "svc3.tag":"۰۳ · PAM و PIM", "svc3.h3":"مدیریت دسترسی و هویت ممتاز",
+      "svc3.p":"کنترل حساب‌ها و نقش‌های ممتاز — به‌صورت زمان‌بندی‌شده، قابل ردیابی و قابل ممیزی.",
+      "svc3.l1":"پیاده‌سازی راهکارهای PAM و PIM", "svc3.l2":"دسترسی موقت در لحظه نیاز (Just-in-Time)",
+      "svc3.l3":"بازبینی دسترسی و صدور مجدد گواهی", "svc3.l4":"مدل‌های نقش و دسترسی (RBAC)",
+      "svc4.tag":"۰۴ · خودکارسازی", "svc4.h3":"خودکارسازی و مشاوره",
+      "svc4.p":"خودکارسازی فرآیندهای تکراری IAM و همراهی پروژه‌های پیچیده مشتریان از تحلیل تا بهره‌برداری.",
+      "svc4.l1":"خودکارسازی تخصیص و چرخه عمر حساب", "svc4.l2":"تحلیل و مشاوره برای محیط‌های پیچیده",
+      "svc4.l3":"اسکریپت‌نویسی و ابزارها (PowerShell و Graph API)", "svc4.l4":"همراهی در مهاجرت و استقرار",
+      "process.eyebrow":"رویکرد", "process.h2":"چهار مرحله، یک پروژه",
+      "process.p":"هر پروژه از همان ساختار اصلی پیروی می‌کند — متناسب با اندازه و بلوغ محیط شما.",
+      "phase1.h3":"تحلیل", "phase1.p":"شناسایی Entra ID، Active Directory و حساب‌های ممتاز. ریسک‌های واقعی کجا هستند؟",
+      "phase2.h3":"طراحی", "phase2.p":"معماری هدف برای هویت‌ها، نقش‌ها و دسترسی‌ها، هماهنگ با روند واقعی کار.",
+      "phase3.h3":"اجرا", "phase3.p":"پیاده‌سازی فنی شامل خودکارسازی — همراه با تیم‌های شما.",
+      "phase4.h3":"بهره‌برداری", "phase4.p":"پایش، صدور مجدد گواهی و بهبود مستمر تا مدل در طول زمان پایدار بماند.",
+      "stats.eyebrow":"نتایج", "stats.h2":"مشتریان چه چیزی به دست می‌آورند",
+      "stat1":"پروژه Entra ID و AD انجام‌شده", "stat2":"میانگین کاهش حساب‌های دارای دسترسی بیش‌ازحد",
+      "stat3":"بازبینی دسترسی انجام‌شده", "stat4":"سال تجربه در زیرساخت Microsoft",
+      "quote.text":"بیشتر حوادث امنیتی با یک حمله شروع نمی‌شوند — <span>بلکه با دسترسی‌ای شروع می‌شوند که دیگر کسی نمی‌تواند توضیحش دهد.</span>",
+      "quote.cite":"— اصل کاری AZADI",
+      "about.eyebrow":"درباره من", "about.h2":"یک نقطه تماس، تخصص عمیق",
+      "about.p":"AZADI به معنای همکاری مستقیم با کسی است که کار را انجام می‌دهد، نه یک تیم مشاوره بزرگ — با تمرکز روشن بر راهکارهای هویت مایکروسافت.",
+      "founder.name":"بنیان‌گذار و مشاور ارشد", "founder.role":"مهندس سیستم — زیرساخت مایکروسافت و IAM",
+      "founder.p":"مهندس سیستم با تخصص در زیرساخت مایکروسافت، Entra ID و راهکارهای IAM. همراه سازمان‌ها در تقویت امنیتی Active Directory، معماری سیستم و پروژه‌های پیچیده هویت — از تحلیل تا بهره‌برداری مستمر.",
+      "skill1":"Microsoft Entra ID و هویت ترکیبی", "skill2":"تقویت امنیتی Active Directory و معماری سیستم",
+      "skill3":"راهکارهای PAM و PIM", "skill4":"ورود یکپارچه و احراز هویت چندعاملی",
+      "skill5":"خودکارسازی (PowerShell و Microsoft Graph)", "skill6":"تحلیل و مشاوره برای محیط‌های پیچیده مشتریان",
+      "contact.eyebrow":"تماس", "contact.h2":"درخواست مشاوره",
+      "contact.p":"به‌طور خلاصه وضعیت فعلی خود را برای ما شرح دهید. ظرف دو روز کاری با یک پیشنهاد مشخص برای اولین گفتگو با شما تماس می‌گیریم.",
+      "contact.email":"ایمیل", "contact.phone":"تلفن", "contact.web":"وب‌سایت",
+      "form.name":"نام", "form.company":"شرکت", "form.email":"ایمیل", "form.topic":"موضوع",
+      "form.topic.ph":"مثلاً: استقرار Entra ID، تقویت امنیتی AD، پیاده‌سازی PAM",
+      "form.message":"پیام", "form.message.ph":"توضیح کوتاهی از وضعیت فعلی و هدف خود بنویسید.",
+      "form.submit":"ارسال درخواست", "form.note":"فرم نمایشی — هنوز به بک‌اند متصل نشده است.",
+      "footer.imprint":"اطلاعات قانونی", "footer.privacy":"حریم خصوصی"
     }
   };
 
+  const rtlLangs = ['ar', 'fa'];
   function applyLang(lang){
     document.documentElement.lang = lang;
+    document.documentElement.dir = rtlLangs.includes(lang) ? 'rtl' : 'ltr';
+    document.body.classList.toggle('rtl', rtlLangs.includes(lang));
     document.querySelectorAll('[data-i18n]').forEach(el => {
       const key = el.getAttribute('data-i18n');
       if (i18n[lang][key] !== undefined) el.textContent = i18n[lang][key];
@@ -602,8 +693,9 @@
       const key = el.getAttribute('data-i18n-placeholder');
       if (i18n[lang][key] !== undefined) el.setAttribute('placeholder', i18n[lang][key]);
     });
-    document.getElementById('btn-de').classList.toggle('active', lang === 'de');
-    document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+    ['de','en','ar','fa'].forEach(l => {
+      document.getElementById('btn-' + l).classList.toggle('active', lang === l);
+    });
   }
   function setLang(lang){ applyLang(lang); }
 
@@ -675,64 +767,6 @@
   }
 
   applyLang('de');
-
-  // --- Kontaktformular: Versand an kontakt@azadi.cloud ---
-  // WICHTIG: Access Key von https://web3forms.com eintragen (kostenlos, keine Registrierung nötig).
-  // Dort einfach kontakt@azadi.cloud eintragen, Key kopieren, hier einfügen.
-  const WEB3FORMS_ACCESS_KEY = "f0f452ff-0bb3-4dd4-ab78-520bdb57323c";
-
-  const kontaktForm = document.getElementById('kontaktform');
-  const kontaktBtn = document.getElementById('kontaktform-submit');
-  const kontaktNote = document.getElementById('kontaktform-note');
-  const noteKeys = { idle: 'form.note', sending: 'form.sending', success: 'form.success', error: 'form.error' };
-
-  function setNote(state) {
-    const lang = document.documentElement.lang || 'de';
-    const dict = (typeof i18n !== 'undefined' && i18n[lang]) ? i18n[lang] : {};
-    kontaktNote.textContent = dict[noteKeys[state]] || noteKeys[state];
-  }
-
-  if (kontaktForm) {
-    kontaktForm.addEventListener('submit', async function (e) {
-      e.preventDefault();
-
-      // Honeypot: wenn ausgefüllt, ist es ein Bot -> stillschweigend abbrechen
-      if (kontaktForm.website.value) return;
-
-      kontaktBtn.disabled = true;
-      setNote('sending');
-
-      const payload = {
-        access_key: WEB3FORMS_ACCESS_KEY,
-        subject: "Neue Anfrage über azadi.cloud",
-        from_name: "azadi.cloud Kontaktformular",
-        name: kontaktForm.name.value,
-        firma: kontaktForm.firma.value,
-        email: kontaktForm.email.value,
-        thema: kontaktForm.thema.value,
-        nachricht: kontaktForm.nachricht.value
-      };
-
-      try {
-        const res = await fetch("https://api.web3forms.com/submit", {
-          method: "POST",
-          headers: { "Content-Type": "application/json", "Accept": "application/json" },
-          body: JSON.stringify(payload)
-        });
-        const data = await res.json();
-        if (data.success) {
-          setNote('success');
-          kontaktForm.reset();
-        } else {
-          setNote('error');
-        }
-      } catch (err) {
-        setNote('error');
-      } finally {
-        kontaktBtn.disabled = false;
-      }
-    });
-  }
 </script>
 
 </body>
