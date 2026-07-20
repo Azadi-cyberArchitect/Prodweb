@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AZADI — Kundenportal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#ffffff; --bg-alt:#f4f6f8; --line:#e2e6eb;
+    --navy:#12233f; --steel:#5b6472; --blue:#2e86c1; --blue-dim:#e8f2fa; --green:#7cb342;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{background:var(--bg); color:var(--navy); font-family:'IBM Plex Sans', sans-serif; line-height:1.55;}
+  h1,h2{font-family:'Space Grotesk', sans-serif; font-weight:600;}
+  a{color:var(--blue);}
+  .wrap{max-width:840px; margin:0 auto; padding:0 24px;}
+  header{border-bottom:1px solid var(--line); padding:20px 0;}
+  header .wrap{display:flex; align-items:center; justify-content:space-between;}
+  .logo{display:flex; align-items:center; gap:10px;}
+  .logo img{height:30px;}
+  .logout{font-family:'IBM Plex Mono', monospace; font-size:0.82rem; color:var(--steel); border:1px solid var(--line); padding:8px 14px;}
+  .logout:hover{border-color:var(--steel); color:var(--navy);}
+  main{padding:56px 0 80px;}
+  .eyebrow{font-family:'IBM Plex Mono', monospace; font-size:0.78rem; color:var(--blue); text-transform:uppercase; letter-spacing:0.08em; margin-bottom:14px;}
+  h1{font-size:1.9rem; margin-bottom:8px;}
+  .subtitle{color:var(--steel); margin-bottom:36px;}
+  .mfa-banner{
+    background:var(--blue-dim); border:1px solid #cfe6f6; padding:20px 22px;
+    display:flex; gap:16px; align-items:flex-start; margin-bottom:36px;
+  }
+  .mfa-banner .icon{
+    width:34px; height:34px; flex:none; background:var(--blue); color:#fff;
+    display:flex; align-items:center; justify-content:center; font-family:'IBM Plex Mono',monospace;
+    font-size:0.9rem; font-weight:600;
+  }
+  .mfa-banner h2{font-size:1.02rem; margin-bottom:6px;}
+  .mfa-banner p{font-size:0.92rem; color:var(--navy);}
+  .mfa-banner a{font-size:0.86rem; display:inline-block; margin-top:8px;}
+  .card{border:1px solid var(--line); padding:28px; margin-bottom:20px;}
+  .card .k{font-family:'IBM Plex Mono', monospace; font-size:0.72rem; color:var(--steel); text-transform:uppercase; letter-spacing:0.06em; margin-bottom:6px;}
+  .card .v{font-size:1rem;}
+  .placeholder{color:var(--steel); font-size:0.94rem; padding:32px; border:1px dashed var(--line); text-align:center;}
+  #loading{color:var(--steel); font-size:0.94rem;}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <a href="/" class="logo"><img src="/assets/azadi-logo.jpg" alt="AZADI"></a>
+    <a href="/.auth/logout?post_logout_redirect_uri=/" class="logout">Abmelden</a>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <div class="eyebrow">Kundenportal</div>
+    <h1 id="greeting">Willkommen</h1>
+    <p class="subtitle" id="loading">Anmeldedaten werden geladen …</p>
+
+    <div class="mfa-banner">
+      <div class="icon">MFA</div>
+      <div>
+        <h2>Ihr Zugang ist durch Multi-Faktor-Authentifizierung geschützt</h2>
+        <p>Diese Anmeldung erfolgt über Microsoft Entra ID. Zusätzlich zu Ihrem Passwort wird bei jeder Anmeldung ein zweiter Faktor abgefragt (z. B. Microsoft Authenticator, SMS-Code oder Sicherheitsschlüssel) — abhängig von der Sicherheitsrichtlinie Ihres Unternehmens.</p>
+        <p>Falls Sie noch keine MFA-Methode eingerichtet haben, können Sie das hier selbst tun:</p>
+        <a href="https://mysignins.microsoft.com/security-info" target="_blank" rel="noopener">Sicherheitsinformationen verwalten →</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="k">Angemeldet als</div>
+      <div class="v" id="user-email">—</div>
+    </div>
+
+    <div class="placeholder">
+      Hier erscheinen künftig Ihre Projektunterlagen, Berichte und Freigaben.
+    </div>
+  </div>
+</main>
+
+<script>
+  async function loadUser() {
+    try {
+      const res = await fetch('/.auth/me');
+      const payload = await res.json();
+      const principal = payload.clientPrincipal;
+      const loadingEl = document.getElementById('loading');
+      const greetingEl = document.getElementById('greeting');
+      const emailEl = document.getElementById('user-email');
+
+      if (!principal) {
+        // sollte durch die Routenregel eigentlich nicht passieren
+        loadingEl.textContent = 'Sie sind nicht angemeldet.';
+        greetingEl.textContent = 'Zugriff nicht möglich';
+        emailEl.textContent = '—';
+        return;
+      }
+
+      const displayName = principal.userDetails || 'Kunde';
+      greetingEl.textContent = 'Willkommen, ' + displayName;
+      loadingEl.textContent = 'Sie sind erfolgreich über Microsoft Entra ID angemeldet.';
+      emailEl.textContent = displayName;
+    } catch (err) {
+      document.getElementById('loading').textContent = 'Anmeldedaten konnten nicht geladen werden.';
+    }
+  }
+  loadUser();
+</script>
+
+</body>
+</html>
