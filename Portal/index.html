@@ -67,7 +67,7 @@
         <p>Diese Anmeldung erfolgt über Microsoft Entra ID. Zusätzlich zu Ihrem Passwort wird bei jeder Anmeldung ein zweiter Faktor abgefragt (z. B. Microsoft Authenticator, SMS-Code oder Sicherheitsschlüssel) — abhängig von der Sicherheitsrichtlinie Ihres Unternehmens.</p>
         <p>Falls Sie noch keine MFA-Methode eingerichtet haben, können Sie das hier selbst tun:</p>
         <a href="https://mysignins.microsoft.com/security-info" target="_blank" rel="noopener">Sicherheitsinformationen verwalten →</a>
-        <p style="margin-top:14px; font-size:0.82rem; color:var(--steel);">Hinweis: Diese MFA-Pflicht gilt für die Anmeldung über Microsoft. Bei Anmeldung über Google, Facebook oder E-Mail hängt der Schutz von den Sicherheitseinstellungen des jeweiligen Kontos ab.</p>
+        <p style="margin-top:14px; font-size:0.82rem; color:var(--steel);">Hinweis: Diese MFA-Pflicht gilt für die Anmeldung über Microsoft. Bei Anmeldung über Google oder Facebook hängt der Schutz von den Sicherheitseinstellungen des jeweiligen Kontos ab.</p>
       </div>
     </div>
 
@@ -101,7 +101,7 @@
       }
 
       const displayName = principal.userDetails || 'Kunde';
-      const providerNames = { aad: 'Microsoft', google: 'Google', facebook: 'Facebook', auth0: 'E-Mail' };
+      const providerNames = { aad: 'Microsoft', google: 'Google', facebook: 'Facebook' };
       const providerLabel = providerNames[principal.identityProvider] || principal.identityProvider;
       greetingEl.textContent = 'Willkommen, ' + displayName;
       loadingEl.textContent = 'Sie sind über ' + providerLabel + ' angemeldet.';
